@@ -1,0 +1,22 @@
+apply plugin: 'java'
+
+group 'de.melnichuk'
+version '1.0-SNAPSHOT'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compileOnly 'org.springframework.boot:spring-boot-starter-web:2.0.3.RELEASE'
+    // compile 'commons-io:commons-io:2.6'
+}
+
+task collectCompileOnlyDependencies (type: Copy) {
+    from project.configurations.compileOnly
+    into "$buildDir.absolutePath/jars"
+}
+
+assemble.dependsOn('collectCompileOnlyDependencies')
